@@ -1,0 +1,180 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+}
+
+html,
+body {
+    background: linear-gradient(rgba(235, 229, 250, 0.808), rgba(59, 11, 179, 0.808), rgba(12, 1, 37, 0.808));
+    color: black;
+    min-height: 100vh;
+    font-size: 10px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+
+
+header {
+    font-size: 2rem;
+    display: flex;
+}
+
+.headinglist {
+    font-family: sans-serif;
+    display: inline-flex;
+    position: relative;
+    height: 5px;
+}
+
+.hlinks {
+    font-family: sans-serif;
+    position: relative;
+    display: flex;
+    width: 50px;
+    color: inherit;
+    text-decoration: inherit;
+    list-style: none;
+}
+
+form {
+    margin: 3% 40%;
+}
+
+
+header,
+form {
+    min-height: 20vh;
+    justify-content: center;
+    align-items: center;
+}
+
+form input,
+form button {
+    padding: 0.5rem;
+    font-size: 2rem;
+    border: none;
+    display: block;
+    border-radius: 10px 5px 2px;
+    background: rgba(0, 0, 0, 0.527);
+}
+
+.heading {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.todo-input {
+    color: white;
+    position: relative;
+    display: block;
+}
+
+.todo-btn {
+    cursor: pointer;
+    padding: 0.35rem;
+    width: 105;
+    border-left: 1px solid white;
+    transition: background 0.2s ease;
+}
+
+.todo-btn:hover {
+    background: #6b25d2;
+}
+
+.todo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-list {
+    min-width: 32rem;
+    width: 50vw;
+    list-style: none;
+}
+
+.todo {
+    font-size: 1.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.todo button {
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    font-size: 2rem;
+    transition: transform 0.2s ease;
+}
+
+.todo button:hover {
+    transform: scale(1.1);
+}
+
+.todo li {
+    flex: 1;
+}
+
+.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.fade-away {
+    transform: translateX(10rem);
+    opacity: 0;
+}
+
+input {
+    color: var(--text-color);
+}
+
+input[type="file"] {
+    max-width: 250px;
+    height: fit-content;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background-color: var(--primary-dark);
+}
+
+input[type="file"] {
+    /* Input Style */
+    position: relative;
+    padding: 0.9375rem;
+    color: #f0f0f0;
+    background-color: #2c2c3c;
+    border: 2px solid #3e3e56;
+    border-radius: 0.3125rem;
+    cursor: pointer;
+}
+
+/* Input Button */
+input[type="file"]::file-selector-button {
+    padding: 0.625rem 0.9375rem 0.625rem 2.125rem;
+    color: #fff;
+    background-color: var(--primary);
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in;
+}
+
+/* Button Icon */
+input[type="file"]::before {
+    position: absolute;
+    top: 50%;
+    left: 1.5625rem;
+    width: 0.9375rem;
+    height: 1.25rem;
+    transform: translateY(-50%);
+    pointer-events: none;
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath d='M448 416V352C448 334.326 433.672 320 416 320S384 334.326 384 352V416C384 433.674 369.672 448 352 448H96C78.328 448 64 433.674 64 416V352C64 334.326 49.672 320 32 320S0 334.326 0 352V416C0 469.02 42.98 512 96 512H352C405.02 512 448 469.02 448 416ZM246.625 342.625L374.625 214.625C387.133 202.117 387.117 181.867 374.625 169.375C362.125 156.875 341.875 156.875 329.375 169.375L256 242.75V32C256 14.312 241.688 0 224 0S192 14.312 192 32V242.75L118.625 169.375C106.125 156.875 85.875 156.875 73.375 169.375S60.875 202.125 73.375 214.625L201.375 342.625C213.875 355.125 234.125 355.125 246.625 342.625Z' fill='%23fff' /%3E%3C/svg%3E");
+}

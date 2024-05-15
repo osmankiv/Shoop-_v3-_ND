@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login </title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="html/css/style.css">
+   
+   
+    
+
+</head>
+<body >
+    
+<?php 
+session_start();
+//--------contion ------------
+    $username ="root";
+    $passwoerd="";
+    $database = new PDO("mysql:host=localhost;dbname=clendb;charset=utf8;", $username,$passwoerd);
+//--------End conetion--------
+
+    $read_data = $database->query("SELECT * FROM users");
+
+
+    if(isset($_POST['submit']))
+    {
+        $username=$_POST["username"];
+        $password=$_POST["password"];
+        foreach($read_data as $data)
+        {
+
+            if(($username==$data["user_name"])&&($password==$data["passwerd"])) 
+            {
+
+    header("location:index.html");
+  
+             }
+            else 
+            {
+                echo '<script>alert("username or password is faild")</script>'; 
+            
+                //echo "username or password is faild";
+            }
+        }
+   
+
+
+    
+}
+ ?>
+    <div class="form-raper">
+        <form action="" method="POST"  class="form">
+            <div class="logo">
+                <i class="fa-solid fa-right-to-bracket"></i>
+
+                <h2>Log in </h2>
+            </div>
+            <div class="input-wrapper">
+                <p> user name</p>
+            </div>
+            <input type="text"  name="username" class="input" placeholder="Enter your username" id="username" required>
+            <div class="input-wrapper">
+                <p>password</p>
+            </div>
+            <input type="password" name="password" class="input" placeholder="***************" id="Password" required>
+
+            <button class="button"  class="Log" type="submit" name="submit" value="log in"><!--   --> Login</a> </button>
+            
+            </div>
+
+        </form>
+
+    </div>
+</body>
+</html>
