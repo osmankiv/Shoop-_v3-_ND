@@ -126,12 +126,9 @@ label {
     border: solid 2px #44ff7c;
     border-radius: 6px;
     -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
     line-height: 28px;
-    overflow: hidden;
     padding: 10px 60px;
-    background-color: rgb(241, 255, 235);
-    margin: 10px 400px;
+   
 }
 
 .inside-warning {

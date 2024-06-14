@@ -8,8 +8,8 @@
     
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+       <!-- <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
         <link rel="stylesheet" href="css/stylelog in.css">
    
    
@@ -19,6 +19,7 @@
 <body >
     
     <?php 
+  //  echo(date('y-m-d'.' '.'h:i:s'));
         session_start();
         //--------contion ------------
          include 'conationDB.php';
@@ -36,8 +37,8 @@
                  header("location:");/// the error page
             } 
         }
-          echo '101.44.'.$block_ip.'<br>';
-           echo '101.44.'.$user_ip.'<br>';
+         // echo '101.44.'.$block_ip.'<br>';
+          // echo '101.44.'.$user_ip.'<br>';
         ////////////////////////////////
 
         if(isset($_POST['submit']))
@@ -46,7 +47,9 @@
 
  
             $username=$_POST["username"];
-            $passwerd=$_POST["passwerd"];
+            $passwerd=openssl_encrypt($_POST["passwerd"],'AES-256-CBC','osman0',0,'9875675675672340');// i encrypt tha passwerd if tha log in and in tha account side and mach tha encrypt value in log-in wich encrypt value in database 
+
+           
 
             $stmt = $database->prepare("SELECT * FROM `user` WHERE user_name = :username And passwerd = :passwerd ");
             $stmt->bindParam(':username',$username);
@@ -66,8 +69,10 @@
                     {
                        $_SESSION['logged_in']= true;
                        $_SESSION['username']=  $username;
+                       $date=date('y-m-d');
+                       $time=date('h:i:s');
                         ///save tha ip user////
-                        $add_ip = $database->prepare(" UPDATE `user` SET `ipUser` = '101.44.1'  WHERE  `user_name`='$username' ");
+                        $add_ip = $database->prepare(" UPDATE `user` SET `ipUser` = '101.44.23.$user_ip',`time_of_last_login`= '$date',`time2_of_last_login`='$time'  WHERE  `user_name`='$username' ");
                         $add_ip->execute();
 
 
@@ -117,7 +122,7 @@
             <input type="password" name="passwerd" class="input" placeholder="***************" id="Password" required>
             <button class="button"  class="Log" type="submit" name="submit" value="log in"><!--   --> Login</a> </button>
             <button class="button"  class="Log" value="sin up"><!--   --> <a href="account.php">sin up</a> </button>
-          
+            <a href="php/For_Get_Password.php" class="For_Get_Password">For Get Password</a>
 
 
   

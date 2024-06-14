@@ -25,12 +25,14 @@ session_start();
     if(isset($_POST['submit']))
     {
         $user_name=$_POST["user_name"];
-        $passwerd=$_POST["passwerd"]; 
+        $passwerd=openssl_encrypt($_POST["passwerd"],'AES-256-CBC','osman0',0,'9875675675672340');
         $gmail=$_POST["gmail"]; 
         $phone_number=$_POST["phone_number"];
         $Gender=$_POST["Gender"];
-        $_SERVER['REMOTE_ADDR'];// get ip of the user
+     //   $_SERVER['REMOTE_ADDR'];// get ip of the user
         $user_ip=$_SERVER['REMOTE_ADDR'];
+       
+
         $addData =$database->prepare("INSERT INTO `user`(`user_name`, `passwerd`, `gmail`, `phone_number`, `Gender`, `ipUser`) VALUES ('$user_name','$passwerd','$gmail','$phone_number','$Gender','$user_ip')");
         $addData->execute();
         // in need dising of scaccfull masseg 
@@ -38,16 +40,14 @@ session_start();
 
         ////
         echo '
-                  <span>
                         <div class="outside outside-warning">
                             <div class="inside inside-warning">
                                 <div id="head">&#128682; add user scaccfull  : </div>
                                 welcom in your home
                             </div>
                         </div> 
-                    </span>
                     ';
-        header("location:loginform.php");
+     //   header("location:loginform.php");
          // header("location:logInForm.php");
          //add new line 
         
@@ -79,9 +79,10 @@ session_start();
                     </div>
 
                 </div>
+                
                 <div class="gender-details">
-                    <input type="radio" name="Gender" id="dot-1">
-                    <input type="radio" name="Gender" id="dot-2">
+                    <input type="radio" name="Gender" id="dot-1"  value="Male ">
+                    <input type="radio" name="Gender" id="dot-2"  value="Fmale">
                     <span class="gender-title">Gender</span>
                     <div class="categoty">
                         <label for="dot-1">

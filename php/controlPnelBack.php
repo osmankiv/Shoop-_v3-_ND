@@ -13,6 +13,8 @@
         <?php
     
         session_start();
+        if( isset($_SESSION['username']) && $_SESSION['username'] == 'admin')
+			{
 //--------contion ------------
   include '../conationDB.php';
 //--------End conetion--------
@@ -26,32 +28,37 @@
         $id=$_POST["id"];
         $heading=$_POST["heading"];
         $details=$_POST["details"];
+        $long_details=$_POST["long_details"];
         $price=$_POST["price"]; 
         $image0=$_POST["image0"];
-        $linkOfImge=$_POST["image"];
-        //uplode tha files "the imeg if item
-        $itme_dir = "imgs/";
-        $file_dir = $itme_dir.basename($_FILES["image"]["name"]);
-        $upLodeOk=1;
-        $imageFileType.strtolower(pathinfo($file_dir,PATHINFO_EXTENSION));
-        //check if img file is a atual image or fake imge
-        $check = getimagesize($_FILES["image"]["tmp_name"]);
-        if($check ==false){
-            echo "file an imeg". $check["mime"] . ".";
-            $upLodeOk =1;
-        }
-        else{
-            echo"file type is not real imge";
-            $upLodeOk=0;
-        }
+        $part=$_POST["part"];
+
+        //
         
-         $addData =$database->prepare("INSERT INTO `items`(`id`,`heading`, `details`, `price`, `image0`,`linkOfImge`) VALUES ('$id','$heading','$details','$price','$file_dir','$linkOfImge')");
+        //uplode tha files "the imeg if item
+        $itme_dir = "server/";
+        $file_dir = $itme_dir.basename($_FILES["image0"]["name"]);
+        move_uploaded_file($_FILES["image0"]["name"],'db'.$_FILES["image0"]["tmp_name"]);
+
+        
+         if(isset($_FILES['image0'])&&($_FILES['image0']['error'] == UPLOAD_ERR_OK))
+         {
+            $newpath ="../server/".basename($_FILES['image0']['name']);
+            if(move_uploaded_file($_FILES['image0']['tmp_name'], $newpath )){
+             //   echo "file saved in $newpath ";
+           //     echo "<br>".basename($_FILES['image0']['name']);
+            }
+         }
+
+    
+        
+         $addData =$database->prepare("INSERT INTO `$part`(`heading`, `details`,`long_details`, `price`, `image0`) VALUES ('$heading','$details','$long_details','$price','$file_dir')");
         $addData->execute();
          
-       
+         
        
          // mov of the nex data
-          header("location:\shoop/control-panel.php");
+        header("location:\shoop v3 ND/control-panel.php ");
        ;
             
       
@@ -59,7 +66,10 @@
     
         
  
-    
+  } else {echo "nice try baby";
+    header("location:\shoop v3 ND/control-panel.php ");
+       ;}
+
         
         ?>
     </body>

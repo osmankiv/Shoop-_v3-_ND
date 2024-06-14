@@ -1,3 +1,5 @@
 doman name "oshoop.publicvm.com"
                           "Website for oshoop.kesug.com"
 pass                 : cWSM1XvQRblLR
+
+185.27.134.11:21

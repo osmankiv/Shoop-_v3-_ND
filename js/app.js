@@ -1,124 +1,58 @@
-//DOM Elements
-const todoInput = document.querySelector('.todo-input');
-const heading1 = document.querySelector('.heading1').textContent;
-const todoBtn = document.querySelector('.todo-btn');
-const todoList = document.querySelector('.todo-list');
-
-//Event Listeners
-todoBtn.addEventListener('click', additem);
-todoList.addEventListener('click', deleteTodo);
-function additem(event) {
-    event.preventDefault();
-
-
-    const main = document.createElement('div');
-    main.className = 'todo';
-    const main2 = document.createElement('p');
-    main2.innerText = heading1;
-    const card = document.createElement('div');
-    card.className = 'card';
-    const heading = document.createElement('div');
-    heading.className = 'heading';
-    const details = document.createElement('div');
-    details.className = 'details';
-    const price = document.createElement('div');
-    price.className = 'price';
 
 
 
-
-
-
-
-
-    //create complete task button
-    const completedBtn = document.createElement('button');
-    completedBtn.innerText = `✔️`;
-    completedBtn.classList.add('todoInput');
-    main.appendChild(completedBtn);
-
-    //create trash button
-    const trashBtn = document.createElement('button');
-    trashBtn.innerText = `❌`;
-    trashBtn.classList.add('trash-btn');
-    main.appendChild(trashBtn);
-
-    //Add wrapper div to ul
-    todoList.appendChild(main);
-    todoList.appendChild(main);
-
-}
-/*
-function additem(event) {
-    //prevent the form from submitting
-    event.preventDefault();
-
-    //add todo only when user enters something
-    if (todoInput.value !== '') {
-        /*                          <div class="main">
-                                    <div class="card">
-                                        <div class="heading">UltraFlex</div>
-                                        <div class="details">Beste Design till date.<br>Flex it up as you wish,<br> but you
-                                            can't break it.</div>
-                                        <div class="price">$99</div>
-                                        <button class="btn1">Buy</button>
-                                        <button class="btn2">Add to Cart</button>
-                                    </div>
-                                    
-        //create wrapper div
-        const main = document.createElement('div');
-        main.className = 'todo';
-        const card = document.createElement('div');
-        card.className = 'card';
-        const heading = document.createElement('div');
-        heading.className = 'heading';
-        const details = document.createElement('div');
-        details.className = 'details';
-        const price = document.createElement('div');
-        price.className = 'price';
-
-        //create list element
-        const mainli = document.createElement('li');
-        mainli.className = 'todo-item';
-        mainli.innerText = todoInput.value;
-
-        //add that list element inside of wrapper div
-        mainli.appendChild(main);
-        todoInput.value = '';
-
-        //create complete task button
-        const completedBtn = document.createElement('button');
-        completedBtn.innerText = `✔️`;
-        completedBtn.classList.add('complete-btn');
-        main.appendChild(completedBtn);
-
-        //create trash button
-        const trashBtn = document.createElement('button');
-        trashBtn.innerText = `❌`;
-        trashBtn.classList.add('trash-btn');
-        main.appendChild(trashBtn);
-
-        //Add wrapper div to ul
-        todoList.appendChild(main);
+function fetch_data(data_search_box_value) {
+    document.querySelector(".heading1").style.border = "2px solid #ff0a0a00 ";
+    document.querySelector(".submit").style.display = "block";
+    //post
+    //alert(data_search_box_value.length);
+    if (data_search_box_value.length == 0) {
+        //document.querySelector('.disply_search_resalt_select').innerHTML = "";
+        //.getElementsByClassName('.disply_search_resalt_select_itmes').innerHTML = "";
     }
-}*/
+    let heading = data_search_box_value;
+    let pxhr = new XMLHttpRequest();// 'XMLHttpRequest' ينشئ كائن  
+    pxhr.open('POST', 'verificatiion_of_add_new_item.php?id=' + heading + '', true);
+    pxhr.setRequestHeader('Content-Type', 'application/json')
+    let data = {
+        heading: '' + heading + ''
 
-function deleteTodo(e) {
-    const item = e.target;
+    };
+    pxhr.send(JSON.stringify(data));// send data of the search box
+    pxhr.onreadystatechange = function () { // يعين دالة يتم استدعاؤها كلما تغيرت حالة الطلب
+        if (pxhr.readyState === 4 && pxhr.status === 200) {
+            console.log('done send data');
+            //	window.location.href = 'data_indx.php?id='+heading+'';
 
-    if (item.classList[0] === 'trash-btn') {
-        const todo = item.parentElement;
-        todo.classList.add('fade-away');
+        }
+    };
 
-        todo.addEventListener('transitionend', e => {
-            todo.remove();
-        });
-    }
+    //fetch
 
-    if (item.classList[0] === 'complete-btn') {
-        const todo = item.parentElement;
-        const todoItem = todo.querySelector('.todo-item');
-        todoItem.classList.toggle('completed');
+    let xhr = new XMLHttpRequest(); //  	'XMLHttpRequest' ينشئ كائن  
+    xhr.open('GET', 'verificatiion_of_add_new_item.php?id=' + heading + '', true); // يفتح طلب HTTP. أول معلمة هي طريقة الطلب ("GET" في هذه الحالة). 	المعلمة الثانية هي عنوان URL للطلب.
+    xhr.onreadystatechange = function () { // يعين دالة يتم استدعاؤها كلما تغيرت حالة الطلب
+        if (xhr.readyState === 4 && xhr.status === 200) {
 
-    }
+            let response = JSON.parse(xhr.responseText);
+            console.log(response);
+            if (response.status == true) {
+
+                document.querySelector(".heading1").style.border = "2px solid #ff0a0aea";
+                document.querySelector(".submit").style.display = "none";
+            }
+            else {
+                document.querySelector(".heading1").style.border = "2px solid #27ff0a ";
+                document.querySelector(".submit").style.display = "block";
+            }
+
+
+
+
+
+        }
+    };
+
+    xhr.send();//
+
 }
